@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/header/Header";
+import { ThemeProvider } from "@mui/material/styles";
+import { Route, Routes } from "react-router-dom";
+import theme from "./components/themeData/theme";
+import Login from "./components/auth/Login";
+import SignUp from "./components/auth/SignUp";
+
+import { Navigate } from "react-router-dom";
+import { useAuth } from "./context/authContext";
 
 function App() {
+  const { userLoggedIn } = useAuth();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            userLoggedIn ? (
+              <Navigate to="/home" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/home" element={<Header />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
-
 export default App;
