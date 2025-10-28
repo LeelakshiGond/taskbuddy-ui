@@ -9,6 +9,7 @@ import { doSignOut } from "../../auth";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import { deepOrange, deepPurple } from "@mui/material/colors";
+import CustomTable from "../form/CustomTable";
 
 export default function Header() {
   const { currentUser } = useAuth();
@@ -85,13 +86,12 @@ export default function Header() {
           LogOut
         </Button>
       </Box>
+      <FilterPage />
       <TabPanel index={0} value={value}>
-        <FilterPage />
+        <CustomTable />
       </TabPanel>
 
-      <TabPanel index={1} value={value}>
-        <FilterPage />
-      </TabPanel>
+      <TabPanel index={1} value={value}></TabPanel>
     </>
   );
 }
